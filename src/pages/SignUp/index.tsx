@@ -1,8 +1,68 @@
-import * as React from 'react';
+import React, {useState, useCallback} from 'react';
+
+
+import { useHistory, Link } from 'react-router-dom';
+import api from '../../services/api';
+
+import { Container, Content, AnimationContainer, Background, Button, Input } from './styles';
+
 
 const SignUp: React.FC = () => {
+
+
+  const history = useHistory();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  const handleSubmit = useCallback(async (e) => {
+    try {
+      e.preventDefault();
+
+
+      await api.post('/users', {
+        email,
+        password,
+        photo_url: null,
+      })
+
+
+      history.push('/')
+      
+
+      
+    } catch (err) {
+
+      console.log(err)
+
+    }
+  }, [email, history, password])
+
+
   return (
-    <h1>SignUp</h1>
+    <>
+    <Container>
+      <Background />
+      <Content>
+        <AnimationContainer>
+          <h1>Register now!</h1>
+          <form onSubmit={handleSubmit}>
+            <Input>
+            <input type="text" name="email" id="email" onChange={(e)=> setEmail(e.target.value)} />
+            </Input>
+            <Input>
+              <input type="password" name="password" id="password" onChange={(e)=> setPassword(e.target.value)}/>
+            </Input>
+            <Button type="submit"> Register </Button>
+          </form>
+    <Link to="/">
+      Back to Login
+    </Link>
+    </AnimationContainer>
+      </Content>
+    </Container>
+    </>
   )
 }
 

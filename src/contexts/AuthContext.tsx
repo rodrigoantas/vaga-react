@@ -38,7 +38,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const signIn = useCallback(async ({ email, password }) => {
 
     
-      const { data } = await api.get('authenticate');
+      const { data } = await api.get('users');
 
 
       const user = await data.find((user: SignInCredentials) => user.email === email && user.password === password)
