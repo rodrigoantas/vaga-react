@@ -1,18 +1,21 @@
 {
   "authenticate": [
-    { 
+    {
       "id": 1,
-      "email": "rodrigo@email.com", 
-      "senha": "123456" }, 
-    { 
+      "email": "rodrigo@email.com",
+      "password": "123456"
+    },
+    {
       "id": 2,
-      "email": "lucas@email.com", 
-      "senha": "123123" }, 
-    { 
+      "email": "lucas@email.com",
+      "password": "123123"
+    },
+    {
       "id": 3,
-      "email": "vitoria@email.com", 
-      "senha": "123123" }
-    ],
+      "email": "vitoria@email.com",
+      "password": "123123"
+    }
+  ],
   "products": [
     {
       "id": 1,
@@ -86,6 +89,4 @@
     }
   ],
   "cart": []
-  
-
 }

@@ -18,7 +18,7 @@ interface SignInCredentials {
 
 interface AuthContextData {
   user: User;
-  signIn(credentials: SignInCredentials): Promise<void>;
+  signIn(credentials: SignInCredentials): Promise<any>;
   signOut(): void;
 }
 
@@ -36,12 +36,20 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const { data } = await api.get('authenticate');
 
-      const user = data.find((user: SignInCredentials) => user === {email, password})
-      localStorage.setItem('@Ecommerce:user', JSON.stringify(user));
-      setData({user})
+    
+      const { data } = await api.get('authenticate');
 
+
+      const user = await data.find((user: SignInCredentials) => user.email === email && user.password === password)
+
+      if (user) {
+        localStorage.setItem('@Ecommerce:user', JSON.stringify(user));
+        setData({user})
+        return true
+      } else {
+        throw new Error("This user does not exist.")
+      }
     
   }, []);
 
