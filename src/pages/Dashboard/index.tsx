@@ -1,8 +1,10 @@
 import * as React from 'react';
 
+import Header from '../../components/Header'
+
 const Dashboard: React.FC = () => {
   return (
-    <h1>Dashboard</h1>
+    <Header/>
   )
 }
 

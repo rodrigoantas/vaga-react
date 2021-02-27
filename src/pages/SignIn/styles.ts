@@ -79,6 +79,12 @@ export const AnimationContainer = styled.div`
       color: #00171F;
     }
   }
+
+  @media (max-width: 400px) {
+    form {
+      width: 300px;
+    }
+  }
 `;
 
 export const Background = styled.div`
@@ -100,7 +106,8 @@ export const Button = styled.button`
   transition: 0.2s;
 
   &:hover {
-    background: #3E4C5E;
+    background: #00171F;
+    color: white;
   }
 
 `
