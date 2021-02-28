@@ -4,7 +4,9 @@ import React, {useState, useCallback} from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import api from '../../services/api';
 
-import { Container, Content, AnimationContainer, Background, Button, Input } from './styles';
+import Input from '../../components/Input'
+import { Container, Content, AnimationContainer, Background, Button } from './styles';
+
 
 
 const SignUp: React.FC = () => {
@@ -48,12 +50,8 @@ const SignUp: React.FC = () => {
         <AnimationContainer>
           <h1>Register now!</h1>
           <form onSubmit={handleSubmit}>
-            <Input>
-            <input type="text" name="email" id="email" onChange={(e)=> setEmail(e.target.value)} />
-            </Input>
-            <Input>
-              <input type="password" name="password" id="password" onChange={(e)=> setPassword(e.target.value)}/>
-            </Input>
+            <Input type="text" name="email" id="email" onChange={(e)=> setEmail(e.target.value)}/>
+            <Input type="password" name="password" id="password" onChange={(e)=> setPassword(e.target.value)}/>
             <Button type="submit"> Register </Button>
           </form>
     <Link to="/">

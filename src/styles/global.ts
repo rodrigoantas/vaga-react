@@ -15,12 +15,13 @@ export default createGlobalStyle`
 
   body {
     -webkit-font-smoothing: antialiased;
+    background: #00171F;
+    color: white;
   }
   body, input, button {
     font-family: 'Inter', serif;
     font-size: 16px;
-    background: #00171F;
-    color: white;
+   
   }
   h1, h2, h3, h4, h5, h6, strong {
     font-weight: 500;

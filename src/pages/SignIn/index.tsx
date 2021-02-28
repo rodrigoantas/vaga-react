@@ -3,7 +3,9 @@ import React, {useState, useCallback} from 'react';
 import { useAuth } from '../../contexts/AuthContext'
 import { useHistory, Link } from 'react-router-dom';
 
-import { Container, Content, AnimationContainer, Background, Button, Input } from './styles';
+import Input from '../../components/Input'
+
+import { Container, Content, AnimationContainer, Background, Button } from './styles';
 
 
 
@@ -47,12 +49,8 @@ const SignIn: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <h1>Welcome to the Ecommerce!</h1>
             <h2>Login</h2>
-            <Input>
-              <input type="text" name="email" id="email" onChange={(e)=> setEmail(e.target.value)} />
-            </Input>
-            <Input>
-              <input type="password" name="password" id="password" onChange={(e)=> setPassword(e.target.value)}/>
-            </Input>
+            <Input type="text" name="email" id="email" onChange={(e)=> setEmail(e.target.value)}/>
+            <Input type="password" name="password" id="password" onChange={(e)=> setPassword(e.target.value)}/>
             <Button type="submit"> Entrar </Button>
           </form>
           <Link to="/signup">

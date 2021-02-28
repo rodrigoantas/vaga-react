@@ -6,7 +6,7 @@ import Route from './Route'
 
 import { AuthProvider } from '../contexts/AuthContext'
 
-import Dashboard from '../pages/Dashboard';
+import StoreDashboard from '../pages/StoreDashboard';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
@@ -15,7 +15,7 @@ const Routes: React.FC = () => (
   <AuthProvider>
     <Router>
       <Switch>
-        <Route path="/dashboard" component={Dashboard} isPrivate />
+        <Route path="/dashboard" component={StoreDashboard} isPrivate />
         <Route path="/" exact component={SignIn} />
         <Route path="/signup" component={SignUp} />
       </Switch>
