@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Header from '../../components/Header'
+import Loading from '../../components/Loading'
 
 import { Content, FiltersContainer, FilterCategory, CardsContainer, Card, Cards, EmptyList } from './styles';
+
 
 import api from '../../services/api'
 
@@ -19,6 +21,7 @@ const StoreDashboard: React.FC = () => {
 
   const [products, setProducts] = useState<IProducts[]>([]);
 
+
   const [search, setSearch] = useState('')
   const [menCategory, setMenCategory] = useState('')
   const [womenCategory, setWomenCategory] = useState('')
@@ -26,6 +29,7 @@ const StoreDashboard: React.FC = () => {
   const [jewelery, setJewelery] = useState('')
   const [pricecFilter, setPriceFilter] = useState('')
 
+  const [isLoading, setIsLoading] = useState(true)
 
   const categoriesArray = useMemo(()=> {
     if ([menCategory, womenCategory, electronics, jewelery].every(item => item === "") ){
@@ -47,6 +51,7 @@ const StoreDashboard: React.FC = () => {
   }, [pricecFilter])
 
   useEffect(()=> {
+    setIsLoading(true);
     async function loadProducts() {
       const productsRequest = await api.get('/products/', {
         params: {
@@ -57,7 +62,12 @@ const StoreDashboard: React.FC = () => {
         },
         
       })
-      setProducts(productsRequest.data);
+      // um setTimeOut apenas para o loading aparecer em produção, mas não é necessário.
+      setTimeout(() => {
+        setProducts(productsRequest.data);
+        setIsLoading(false);
+      }, 1000);
+      
     }
     
     loadProducts();
@@ -128,7 +138,7 @@ const StoreDashboard: React.FC = () => {
         { search ? <p> &gt; Loja &gt; Resultados da pesquisa de "{search}" </p> : <p> &gt; Loja </p> }
         <Cards>
           
-        {products.length > 0 ? products.map(product => {
+        {isLoading ? <Loading/> : products.length > 0 ? products.map(product => {
           return (
             <Card key={product.id} to={`/store/${product.id}`}>
               <div>
@@ -140,6 +150,7 @@ const StoreDashboard: React.FC = () => {
           )
         }): <EmptyList>Infelizmente não achamos produto com esse nome! :(</EmptyList>}
         </Cards>
+
 
       </CardsContainer>    
     </Content>
