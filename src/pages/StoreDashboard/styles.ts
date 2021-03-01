@@ -103,3 +103,10 @@ height: fit-content;
 justify-content: center;
 align-items: center;
 `
+
+
+export const EmptyList = styled.h1`
+ margin-top: 100px;
+ max-width: 700px;
+ text-align: center;
+`

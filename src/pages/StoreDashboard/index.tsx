@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Header from '../../components/Header'
 
-import { Content, FiltersContainer, FilterCategory, CardsContainer, Card, Cards } from './styles';
+import { Content, FiltersContainer, FilterCategory, CardsContainer, Card, Cards, EmptyList } from './styles';
 
 import api from '../../services/api'
 
@@ -48,7 +48,7 @@ const StoreDashboard: React.FC = () => {
 
   useEffect(()=> {
     async function loadProducts() {
-      const productsRequest = await api.get('/products', {
+      const productsRequest = await api.get('/products/', {
         params: {
           title_like: search ? search : undefined,
           category: categoriesArray,
@@ -127,9 +127,10 @@ const StoreDashboard: React.FC = () => {
       <CardsContainer>
         { search ? <p> &gt; Loja &gt; Resultados da pesquisa de "{search}" </p> : <p> &gt; Loja </p> }
         <Cards>
-        {products.map(product => {
+          
+        {products.length > 0 ? products.map(product => {
           return (
-            <Card key={product.id} to="/">
+            <Card key={product.id} to={`/store/${product.id}`}>
               <div>
                 <img src={product.image} alt={product.title}/> 
               </div>
@@ -137,7 +138,7 @@ const StoreDashboard: React.FC = () => {
               <p>{formattedPrice(product.price)}</p>
             </Card>
           )
-        })}
+        }): <EmptyList>Infelizmente não achamos produto com esse nome! :(</EmptyList>}
         </Cards>
 
       </CardsContainer>    

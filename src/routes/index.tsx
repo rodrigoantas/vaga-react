@@ -6,18 +6,21 @@ import Route from './Route'
 
 import { AuthProvider } from '../contexts/AuthContext'
 
-import StoreDashboard from '../pages/StoreDashboard';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import StoreDashboard from '../pages/StoreDashboard';
+import Product from '../pages/Product';
+
 
 
 const Routes: React.FC = () => (
   <AuthProvider>
     <Router>
       <Switch>
-        <Route path="/store" component={StoreDashboard} isPrivate />
-        <Route path="/" exact component={SignIn} />
-        <Route path="/signup" component={SignUp} />
+        <Route exact path="/store" component={StoreDashboard} isPrivate />
+        <Route exact path="/store/:product" component={Product} isPrivate />
+        <Route exact path="/" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
       </Switch>
     </Router>
   </AuthProvider>
