@@ -8,7 +8,7 @@ const Input:React.FC<InputHTMLAttributes<HTMLInputElement>> = ({ ...props }) => 
 
   return (
     <InputContainer>
-      <input {...props}> </input>
+      <input {...props}/>
     </InputContainer>
   )
 }

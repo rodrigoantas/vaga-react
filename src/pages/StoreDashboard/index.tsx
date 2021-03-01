@@ -24,39 +24,47 @@ const StoreDashboard: React.FC = () => {
   const [womenCategory, setWomenCategory] = useState('')
   const [electronics, setElectronics] = useState('')
   const [jewelery, setJewelery] = useState('')
+  const [pricecFilter, setPriceFilter] = useState('')
 
 
   const categoriesArray = useMemo(()=> {
     if ([menCategory, womenCategory, electronics, jewelery].every(item => item === "") ){
-      console.log([menCategory, womenCategory, electronics, jewelery])
-      console.log('retornando undefined')
       return undefined
     } else {
-      console.log('retornando array')
-      console.log([menCategory, womenCategory, electronics, jewelery])
       return [menCategory, womenCategory, electronics, jewelery]
     }
   },[electronics, jewelery, menCategory, womenCategory])
-  
+
+
+  const priceRange = useMemo(()=> {
+    if (pricecFilter === '<100'){
+      return {gte: 0, lte: 100}
+    } else if (pricecFilter === '>100<200') {
+      return {gte: 100, lte: 200}
+    } else if (pricecFilter === '>200') {
+      return {gte: 200, lte: Infinity}
+    }
+  }, [pricecFilter])
 
   useEffect(()=> {
     async function loadProducts() {
-      const teste = await api.get('/products', {
+      const productsRequest = await api.get('/products', {
         params: {
           title_like: search ? search : undefined,
-          category: categoriesArray
-
+          category: categoriesArray,
+          price_gte: priceRange?.gte,
+          price_lte: priceRange?.lte,
         },
         
       })
-      setProducts(teste.data);
+      setProducts(productsRequest.data);
     }
     
     loadProducts();
-  },[categoriesArray, search])
+  },[categoriesArray, priceRange?.gte, priceRange?.lte, search])
 
   const addElipsis = useCallback((string: string)=> {
-    return (string.length > 54) ? string.slice(0, 53) + '...' : string;
+    return (string.length > 50) ? string.slice(0, 49) + '...' : string;
   },[])
 
   const formattedPrice = useCallback((price: number)=> {
@@ -65,7 +73,6 @@ const StoreDashboard: React.FC = () => {
       currency: 'BRL',
     }).format(price)
   },[])
-
 
 
   return (
@@ -96,7 +103,11 @@ const StoreDashboard: React.FC = () => {
         </FilterCategory>
         <FilterCategory>
         <h1>Preço</h1>
-        <form onChange={(e: any)=> console.log(e.target.value)}>
+        <form onChange={(e: any)=> setPriceFilter(e.target.value)}>
+        <label  htmlFor="0">  
+            <input defaultChecked value="0" type="radio" name="price" id="0"/> 
+            Todos os preços
+          </label>
           <label htmlFor="<100">  
             <input value="<100" type="radio" name="price" id="<100"/> 
             Menor que 100R$
@@ -119,8 +130,10 @@ const StoreDashboard: React.FC = () => {
         {products.map(product => {
           return (
             <Card key={product.id} to="/">
-              <img src={product.image} alt={product.title}/> 
-              <h3>{addElipsis(product.title)}</h3>
+              <div>
+                <img src={product.image} alt={product.title}/> 
+              </div>
+              <h3>{addElipsis(product.title)} &gt; </h3>
               <p>{formattedPrice(product.price)}</p>
             </Card>
           )

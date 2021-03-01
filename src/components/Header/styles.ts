@@ -4,7 +4,7 @@ export const HeaderContainer = styled.div`
 display: grid;
 width: 100%;
 height: 200px;
-background-color: #666360;
+background-color: #3E4C5E;
 grid-template-columns: 1fr 2fr 1fr;
 
 
@@ -67,5 +67,10 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    transition: 0.5s;
+    color: white;
+  }
 }
 `

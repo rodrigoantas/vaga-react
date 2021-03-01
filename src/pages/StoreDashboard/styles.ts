@@ -55,14 +55,22 @@ padding: 10px;
 display: flex;
 flex-direction: column;
 align-items: center;
-img {
+justify-content: center;
+div {
   width: 170px;
   height: 200px;
-  margin-bottom: 10px;
-
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 
 p {
+  margin-top: 10px;
   font-weight: bold;
   color: #00b200;
 }
@@ -70,6 +78,7 @@ p {
 h3 {
  border-top: 1px solid black;
  padding-top: 20px;
+ width: 100%;
 }
 
 section {

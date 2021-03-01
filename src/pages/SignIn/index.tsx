@@ -26,7 +26,7 @@ const SignIn: React.FC = () => {
       await signIn({email, password})
 
 
-      history.push('/dashboard')
+      history.push('/store')
       
 
       
