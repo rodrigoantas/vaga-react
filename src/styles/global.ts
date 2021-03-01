@@ -23,6 +23,14 @@ export default createGlobalStyle`
     font-size: 16px;
    
   }
+
+  html, body {
+    height: 100%;
+  }
+  #root {
+    height: 100%;
+  }
+  
   h1, h2, h3, h4, h5, h6, strong {
     font-weight: 500;
   }
@@ -37,4 +45,5 @@ export default createGlobalStyle`
   textarea {
     resize: none;
   }
+
 `;
