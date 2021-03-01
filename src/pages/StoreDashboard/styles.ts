@@ -35,11 +35,13 @@ form {
 `;
 
 export const CardsContainer = styled.div`
-display: flex;
-flex-wrap: wrap;
-height: fit-content;
-justify-content: center;
-align-items: center;
+  > p {
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-right: 50px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid white;
+}
 `;
 
 export const Card = styled(Link)`
@@ -78,9 +80,17 @@ section {
 }
 
 &:hover {
-    transform: scale(1.15);
+    transform: scale(1.1);
     transition-duration: 200ms;
-    
   }
 
 `;
+
+
+export const Cards = styled.div`
+display: flex;
+flex-wrap: wrap;
+height: fit-content;
+justify-content: center;
+align-items: center;
+`

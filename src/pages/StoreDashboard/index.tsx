@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import Header from '../../components/Header'
 
-import { Content, FiltersContainer, FilterCategory, CardsContainer, Card } from './styles';
+import { Content, FiltersContainer, FilterCategory, CardsContainer, Card, Cards } from './styles';
 
 import api from '../../services/api'
 
@@ -19,16 +19,25 @@ const StoreDashboard: React.FC = () => {
 
   const [products, setProducts] = useState<IProducts[]>([]);
 
+  const [search, setSearch] = useState('')
+
   
 
   useEffect(()=> {
     async function loadProducts() {
-      const { data } = await api.get('/products')
-      setProducts(data);
+      const teste = await api.get('/products', {
+        params: {
+          title_like: search ? search : undefined,
+
+        },
+        
+      })
+      console.log(teste)
+      setProducts(teste.data);
     }
     
     loadProducts();
-  },[])
+  },[search])
 
   const addElipsis = useCallback((string: string)=> {
     return (string.length > 54) ? string.slice(0, 53) + '...' : string;
@@ -41,9 +50,10 @@ const StoreDashboard: React.FC = () => {
     }).format(price)
   },[])
 
+
   return (
     <>
-    <Header/>
+    <Header setSearch={setSearch}/>
     <Content>
       <FiltersContainer>
         <FilterCategory>
@@ -87,41 +97,8 @@ const StoreDashboard: React.FC = () => {
           </FilterCategory>
       </FiltersContainer>
       <CardsContainer>
-
-        <Card to="/teste">
-          <img src="https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg" alt="teste"/> 
-          <h3>{addElipsis('BIYLACLESEN Womens 3-in-1 Snowboard Jacket Winter Coats')}</h3>
-          <section>
-            <p>100,00R$</p>
-          </section>
-          
-        </Card>
-        <Card to="/">
-          <img src="https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg" alt="teste"/> 
-          <h3>BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats</h3>
-          <p>100,00R$</p>
-        </Card>
-        <Card to="/">
-          <img src="https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg" alt="teste"/> 
-          <h3>BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats</h3>
-          <p>100,00R$</p>
-        </Card>
-        <Card to="/">
-          <img src="https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg" alt="teste"/> 
-          <h3>BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats</h3>
-          <p>100,00R$</p>
-        </Card>
-        <Card to="/">
-          <img src="https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg" alt="teste"/> 
-          <h3>BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats</h3>
-          <p>100,00R$</p>
-        </Card>
-        <Card to="/">
-          <img src="https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg" alt="teste"/> 
-          <h3>BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats</h3>
-          <p>100,00R$</p>
-        </Card>
-
+        { search ? <p> &gt; Loja &gt; Resultados da pesquisa de "{search}" </p> : <p> &gt; Loja </p> }
+        <Cards>
         {products.map(product => {
           return (
             <Card key={product.id} to="/">
@@ -131,6 +108,7 @@ const StoreDashboard: React.FC = () => {
             </Card>
           )
         })}
+        </Cards>
 
       </CardsContainer>    
     </Content>

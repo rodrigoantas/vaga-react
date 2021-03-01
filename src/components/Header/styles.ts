@@ -21,20 +21,24 @@ grid-template-columns: 1fr 2fr 1fr;
 export const Logo = styled.div``
 
 export const InputContainer = styled.div`
-padding: 16px;
-padding-right: 5px;
-width: 100%;
-background-color: white;
 
-display: flex;
-align-items: center;
-height: 30px;
+form {
+  padding: 16px;
+  padding-right: 5px;
+  width: 100%;
+  background-color: white;
 
-align-self: center;
+  display: flex;
+  align-items: center;
+  height: 30px;
 
-border: 2px solid white;
-border-radius: 4px;
+  align-self: center;
 
+  border: 2px solid white;
+  border-radius: 4px;
+
+
+}
 
 input {
   width: 100%;
