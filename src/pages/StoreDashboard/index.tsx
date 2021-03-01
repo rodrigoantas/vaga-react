@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Header from '../../components/Header'
 
@@ -20,7 +20,23 @@ const StoreDashboard: React.FC = () => {
   const [products, setProducts] = useState<IProducts[]>([]);
 
   const [search, setSearch] = useState('')
+  const [menCategory, setMenCategory] = useState('')
+  const [womenCategory, setWomenCategory] = useState('')
+  const [electronics, setElectronics] = useState('')
+  const [jewelery, setJewelery] = useState('')
 
+
+  const categoriesArray = useMemo(()=> {
+    if ([menCategory, womenCategory, electronics, jewelery].every(item => item === "") ){
+      console.log([menCategory, womenCategory, electronics, jewelery])
+      console.log('retornando undefined')
+      return undefined
+    } else {
+      console.log('retornando array')
+      console.log([menCategory, womenCategory, electronics, jewelery])
+      return [menCategory, womenCategory, electronics, jewelery]
+    }
+  },[electronics, jewelery, menCategory, womenCategory])
   
 
   useEffect(()=> {
@@ -28,16 +44,16 @@ const StoreDashboard: React.FC = () => {
       const teste = await api.get('/products', {
         params: {
           title_like: search ? search : undefined,
+          category: categoriesArray
 
         },
         
       })
-      console.log(teste)
       setProducts(teste.data);
     }
     
     loadProducts();
-  },[search])
+  },[categoriesArray, search])
 
   const addElipsis = useCallback((string: string)=> {
     return (string.length > 54) ? string.slice(0, 53) + '...' : string;
@@ -51,6 +67,7 @@ const StoreDashboard: React.FC = () => {
   },[])
 
 
+
   return (
     <>
     <Header setSearch={setSearch}/>
@@ -60,19 +77,19 @@ const StoreDashboard: React.FC = () => {
           <h1>Categorias</h1>
           <form>
             <label  htmlFor="men">
-              <input onChange={(e)=> console.log(e.target.checked)} value="men" type="checkbox" name="category" id="men"/> 
+              <input onChange={(e)=> {e.target.checked ? setMenCategory(e.target.value) : setMenCategory('')}} value="men" type="checkbox" name="category" id="men"/> 
               Masculino
             </label>
             <label htmlFor="women">
-              <input onChange={(e)=> console.log(e.target.checked)} value="women" type="checkbox" name="category" id="women"/> 
+              <input onChange={(e)=> {e.target.checked ? setWomenCategory(e.target.value) : setWomenCategory('')}} value="women" type="checkbox" name="category" id="women"/> 
               Feminino
             </label>
             <label htmlFor="jewelery">
-              <input onChange={(e)=> console.log(e.target.checked)} value="jewelery" type="checkbox" name="category" id="jewelery"/> 
+              <input onChange={(e)=> {e.target.checked ? setElectronics(e.target.value) : setElectronics('')}} value="jewelery" type="checkbox" name="category" id="jewelery"/> 
               Jóias
             </label>
             <label htmlFor="electronics">
-              <input onChange={(e)=> console.log(e.target.checked)} value="electronics" type="checkbox" name="category" id="electronics"/> 
+              <input onChange={(e)=> {e.target.checked ? setJewelery(e.target.value) : setJewelery('')}} value="electronics" type="checkbox" name="category" id="electronics"/> 
               Eletrônicos
             </label>
           </form>

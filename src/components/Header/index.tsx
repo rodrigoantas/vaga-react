@@ -18,7 +18,6 @@ const Header:React.FC<HeaderSeachProps> = ({setSearch}) => {
   const handleSearch = useCallback((e)=> {
     e.preventDefault();
     setSearch(searchValue)
-    console.log(searchValue);
   },[searchValue, setSearch])
 
 
