@@ -7,6 +7,7 @@ import { Content, FiltersContainer, FilterCategory, CardsContainer, Card, Cards,
 
 
 import api from '../../services/api'
+import { Link } from 'react-router-dom';
 
 interface IProducts {
   id: number;
@@ -62,7 +63,7 @@ const StoreDashboard: React.FC = () => {
         },
         
       })
-      // um setTimeOut apenas para o loading aparecer em produção, mas não é necessário.
+      // um setTimeOut apenas para o loading aparecer em produção, já que os dados carregam muito rápido, mas não é necessário.
       setTimeout(() => {
         setProducts(productsRequest.data);
         setIsLoading(false);
@@ -135,7 +136,7 @@ const StoreDashboard: React.FC = () => {
           </FilterCategory>
       </FiltersContainer>
       <CardsContainer>
-        { search ? <p> &gt; Loja &gt; Resultados da pesquisa de "{search}" </p> : <p> &gt; Loja </p> }
+        { search ? <p> <Link to="/">&gt; Loja</Link> &gt; Resultados da pesquisa de "{search}" </p> : <p> <Link to="/">&gt; Loja</Link> </p> }
         <Cards>
           
         {isLoading ? <Loading/> : products.length > 0 ? products.map(product => {
@@ -154,6 +155,7 @@ const StoreDashboard: React.FC = () => {
 
       </CardsContainer>    
     </Content>
+    <p>teste</p>
     </>
   )
 }

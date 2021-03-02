@@ -18,7 +18,15 @@ grid-template-columns: 1fr 2fr 1fr;
 `
 
 
-export const Logo = styled.div``
+export const Logo = styled.div`
+a {
+  color: white;
+  &:hover {
+    color: gray;
+    transition: 0.5s;
+  }
+}
+`
 
 export const InputContainer = styled.div`
 

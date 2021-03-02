@@ -5,34 +5,42 @@ import { HeaderContainer, Logo, InputContainer, ButtonArea } from './styles';
 import { BsSearch, BsFillPersonFill } from 'react-icons/bs';
 import { HiShoppingCart } from 'react-icons/hi';
 import { GoSignOut} from 'react-icons/go'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext'
 
 
 interface HeaderSeachProps {
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setSearch?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Header:React.FC<HeaderSeachProps> = ({setSearch}) => {
 
   const { signOut } = useAuth();
 
-
+  const history = useHistory()
 
   const [searchValue, setSearchValue] = useState('')
 
   const handleSearch = useCallback((e)=> {
     e.preventDefault();
-    setSearch(searchValue)
-  },[searchValue, setSearch])
+    if (setSearch) {
+      setSearch(searchValue)
+    } else {
+      history.push('/')
+    }
+    
+  },[history, searchValue, setSearch])
 
 
   return (
     <HeaderContainer>
-      <Logo>
-        <h1>Ecommerce!</h1>
-      </Logo>
+        <Logo>
+          <Link to="/">
+            <h1>Ecommerce!</h1>
+          </Link>
+        </Logo>
+
 
       <InputContainer>
         <form onSubmit={(e)=> handleSearch(e)}>

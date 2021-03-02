@@ -79,6 +79,7 @@ h3 {
  border-top: 1px solid black;
  padding-top: 20px;
  width: 100%;
+ min-height: 67px;
 }
 
 section {

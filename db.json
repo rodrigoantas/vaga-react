@@ -4,25 +4,29 @@
       "id": 1,
       "email": "rodrigo@email.com",
       "password": "123456",
-      "photo_url": "https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4"
+      "photo_url": "https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4",
+      "name": "Rodrigo Souza"
     },
     {
       "id": 2,
       "email": "lucas@email.com",
       "password": "123123",
-      "photo_url": "https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4"
+      "photo_url": "https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4",
+      "name": "Lucas Gabriel"
     },
     {
       "id": 3,
       "email": "vitoria@email.com",
       "password": "123123",
-      "photo_url": "https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4"
+      "photo_url": "https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4",
+      "name": "Vitoria Ferreira"
     },
     {
       "email": "gabriel@email.com",
       "password": "123456",
       "photo_url": null,
-      "id": 4
+      "id": 4,
+      "name": "Gabriel Pires"
     }
   ],
   "products": [
