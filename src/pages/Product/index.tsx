@@ -4,6 +4,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { HiShoppingCart } from 'react-icons/hi';
 
 import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 import api from '../../services/api';
 
 import {ProductContainer, ProductBox, ProductImageBox, ProductDetailBox, Reviews, Review, ProductUpperside,AddReview, ZeroReview } from './styles';
@@ -43,7 +44,9 @@ const Product: React.FC = () => {
   useEffect(()=> {
     async function loadReviews(){
       const {data} = await api.get('/reviews/')
+      console.log(data);
     }
+    loadReviews();
   })
 
   const formattedPrice = useCallback((price: number)=> {
@@ -104,14 +107,19 @@ const Product: React.FC = () => {
             </Review>
             <AddReview>
               <h1> Avalie o produto! </h1>
-              <textarea>
+              <form>
+                <textarea/>
+                <button type="submit">Enviar avaliação</button>
+              </form>
+              
 
-              </textarea>
             </AddReview>
           </Reviews>
         </ProductBox>
         
         </ProductContainer>
+        <Footer/>
+        
     </>
   )
 }

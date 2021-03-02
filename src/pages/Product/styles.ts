@@ -122,7 +122,35 @@ flex-direction:column;
 h1 {
   margin-bottom: 20px;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
 textarea {
   height: 150px;
+  font-size: 16px;
+  padding: 10px;
 }
+
+button {
+  background: #3E4C5E;
+  height: 56px;
+  border-radius: 10px;
+  border: 0;
+  padding: 0 16px;
+  color: white;
+  width: 300px;
+  font-weight: 500;
+  margin-top: 16px;
+  transition: 0.5s;
+  align-self: flex-end;
+  
+  &:hover {
+    background: #00171F;
+    color: white;
+  }
+}
+
+
 `

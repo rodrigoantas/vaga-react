@@ -24,9 +24,6 @@ export default createGlobalStyle`
    
   }
 
-  html, body {
-    height: 100%;
-  }
   #root {
     height: 100%;
   }
@@ -45,6 +42,10 @@ export default createGlobalStyle`
 
   textarea {
     resize: none;
+  }
+
+  li {
+    list-style: none;
   }
 
 `;

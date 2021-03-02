@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Header from '../../components/Header'
 import Loading from '../../components/Loading'
+import Footer from '../../components/Footer'
 
 import { Content, FiltersContainer, FilterCategory, CardsContainer, Card, Cards, EmptyList } from './styles';
 
@@ -155,7 +156,7 @@ const StoreDashboard: React.FC = () => {
 
       </CardsContainer>    
     </Content>
-    <p>teste</p>
+    <Footer/>
     </>
   )
 }
