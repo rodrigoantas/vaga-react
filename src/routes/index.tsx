@@ -10,6 +10,7 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import StoreDashboard from '../pages/StoreDashboard';
 import Product from '../pages/Product';
+import Cart from '../pages/Cart';
 
 
 
@@ -18,6 +19,7 @@ const Routes: React.FC = () => (
     <Router>
       <Switch>
         <Route exact path="/store" component={StoreDashboard} isPrivate />
+        <Route exact path="/cart" component={Cart} isPrivate />
         <Route exact path="/store/:product" component={Product} isPrivate />
         <Route exact path="/" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />

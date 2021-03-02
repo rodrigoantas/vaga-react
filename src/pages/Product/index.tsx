@@ -137,7 +137,7 @@ const Product: React.FC = () => {
             <h1>Avaliações</h1>
             {reviews && reviews.length > 0 ? reviews.map(review => {
               return (
-                 <Review>
+                 <Review key={review.id}>
                   <img src={review.user.photo_url ? review.user.photo_url : avatarnull} alt="a"/>
                   <div>
                     <h2>{review.user.name}</h2>
