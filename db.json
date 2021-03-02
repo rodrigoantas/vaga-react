@@ -159,5 +159,51 @@
       "image": "https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg"
     }
   ],
-  "cart": []
+  "cart": [],
+  "reviews": [
+    {
+      "id": 1,
+      "productId": 2,
+      "review": "O tecido é muito bom e lhe serviu direitinho. Para lugares muito frios, acho que não seria quente o suficiente, mas pro inverno está ótimo!",
+      "user": {
+        "email": "lucas@email.com",
+        "photo_url": "https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4",
+        "id": 2,
+        "name": "Lucas Gabriel"
+      }
+    },
+    {
+      "id": 2,
+      "productId": 2,
+      "review": "Chegou no tamanho certinho que pedi. Entrega bem rápida!",
+      "user": {
+        "email": "rodrigo@email.com",
+        "photo_url": "https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4",
+        "id": 1,
+        "name": "Rodrigo Souza"
+      }
+    },
+    {
+      "id": 3,
+      "productId": 3,
+      "review": "Entrega bem rápida!",
+      "user": {
+        "email": "rodrigo@email.com",
+        "photo_url": "https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4",
+        "id": 1,
+        "name": "Rodrigo Souza"
+      }
+    },
+    {
+      "id": 4,
+      "productId": 1,
+      "review": "Estou utilizando o produto a mais ou menos dois meses e, até o presente momento, estou bem satisfeito com ele. É confortável, bonito e a resistência a água realmente funciona!",
+      "user": {
+        "email": "gabriel@email.com",
+        "photo_url": null,
+        "id": 4,
+        "name": "Gabriel Pires"
+      }
+    }
+  ]
 }

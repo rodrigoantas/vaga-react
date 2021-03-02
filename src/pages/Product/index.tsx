@@ -1,13 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
-import { HiShoppingCart } from 'react-icons/hi';
+import { HiShoppingCart, HiTrash } from 'react-icons/hi';
 
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import api from '../../services/api';
 
 import {ProductContainer, ProductBox, ProductImageBox, ProductDetailBox, Reviews, Review, ProductUpperside,AddReview, ZeroReview } from './styles';
+
+import avatarnull from '../../assets/avatar-null.jpg';
+
+import { useAuth } from '../../contexts/AuthContext';
 
 interface IProductParams {
   product: string;
@@ -22,13 +26,29 @@ interface IProduct {
   image: string;
 }
 
+interface IReview {
+  id: number;
+  productId: number;
+  review: string;
+  user: {
+    id: number;
+    photo_url: string;
+    name: string; 
+  }
+}
+
 const Product: React.FC = () => {
 
+  const {user} = useAuth()
+  
+
   const [product, setProduct ] = useState<IProduct>({} as IProduct)
+  const [reviews, setReviews ] = useState<IReview[]>([])
+  const [review, setReview ] = useState('')
 
   const { params } = useRouteMatch<IProductParams>();
 
-
+  
 
   useEffect(()=> {
     async function loadProduct(){
@@ -43,11 +63,49 @@ const Product: React.FC = () => {
 
   useEffect(()=> {
     async function loadReviews(){
-      const {data} = await api.get('/reviews/')
-      console.log(data);
+      const {data} = await api.get(`/reviews/`,)
+
+      const reviewsOfThatProduct = data.filter((r: IReview) => r.productId === Number(params.product))
+
+      setReviews(reviewsOfThatProduct);
     }
     loadReviews();
-  })
+  }, [params.product])
+
+
+
+  const handleReviewSubmit = useCallback( async (e:any) => {
+    e.preventDefault();
+
+    try {
+       const newReview = await api.post(`/reviews/`, {
+        productId: Number(params.product),
+        review: review,
+        user: {
+        email: user.email,
+        photo_url: user.photo_url,
+        id: user.id,
+        name: user.name
+    }
+       })
+
+       setReviews([...reviews, newReview.data])
+
+    } catch (err) {
+
+      console.log(err)
+
+    }
+  }, [params.product, review, reviews, user.email, user.id, user.name, user.photo_url])
+
+  const handleDeleteReview = useCallback( async (id: number)=> {
+    await api.delete(`reviews/${id}`)
+
+    setReviews(reviews.filter(review => review.id !== id))
+
+  },[reviews])
+
+
 
   const formattedPrice = useCallback((price: number)=> {
     return new Intl.NumberFormat('pt-BR', {
@@ -77,38 +135,29 @@ const Product: React.FC = () => {
           
           <Reviews>
             <h1>Avaliações</h1>
-            <Review>
-            <img src="https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4" alt="a"></img>
-              <div>
-                <h2>Pedro Souza</h2>
-                <p>Avaliação lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum </p>
-              </div>
-            </Review>
-            <Review>
-            <img src="https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4" alt="a"></img>
-              <div>
-                <h2>Pedro Souza</h2>
-                <p>Avaliação lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum </p>
-              </div>
-            </Review>
-            <Review>
-            <img src="https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4" alt="a"></img>
-              <div>
-                <h2>Pedro Souza</h2>
-                <p>Avaliação lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum </p>
-              </div>
-            </Review>
-            <Review>
-              <img src="https://avatars.githubusercontent.com/u/69023532?s=460&u=154a9f3856a5d74eb1ec66f6665f44f1a0460b4e&v=4" alt="a"></img>
-              <div>
-                <h2>Pedro Souza</h2>
-                <p>Avaliação lorem ipsum lorem</p>
-              </div>
-            </Review>
+            {reviews && reviews.length > 0 ? reviews.map(review => {
+              return (
+                 <Review>
+                  <img src={review.user.photo_url ? review.user.photo_url : avatarnull} alt="a"/>
+                  <div>
+                    <h2>{review.user.name}</h2>
+                    <p>{review.review}</p>
+                  </div>
+                  <div>
+                    <button onClick={() => handleDeleteReview(review.id)}> <HiTrash size={30}/> </button>
+                  </div>
+                </Review>
+              )
+             
+            }): (
+            <ZeroReview>
+              <h1> Esse produto ainda não possui nenhuma avaliação.</h1>
+            </ZeroReview>
+            )}
             <AddReview>
               <h1> Avalie o produto! </h1>
-              <form>
-                <textarea/>
+              <form onSubmit={handleReviewSubmit}>
+                <textarea onChange={(e)=> setReview(e.target.value) }/>
                 <button type="submit">Enviar avaliação</button>
               </form>
               

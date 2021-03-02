@@ -17,7 +17,8 @@ export const ProductBox = styled.div`
 
   display: flex;
   flex-direction: column;
-  padding: 30px 100px; 
+  padding: 30px 100px;
+  margin-bottom: 30px; 
 `
 
 export const ProductUpperside = styled.div`
@@ -110,9 +111,21 @@ img {
   margin-top: 20px;
 }
 
+
+> div:nth-child(3) {
+  margin-left: auto;
+  button {
+    border: none;
+  }
+}
+
 `
 
-export const ZeroReview = styled.div``
+export const ZeroReview = styled.div`
+text-align: center;
+margin: 50px 0;
+padding: 50px 0;
+`
 
 export const AddReview = styled.div`
 width: 100%;
@@ -129,7 +142,7 @@ form {
 }
 textarea {
   height: 150px;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 10px;
 }
 

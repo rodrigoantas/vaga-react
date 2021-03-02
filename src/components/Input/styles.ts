@@ -21,7 +21,7 @@ input {
   background: transparent;
   border: 0;
   font-family: 'Inter';
-  font-size: 16px;
+  font-size: 1rem;
   color: #f4ede8;
   &::placeholder {
     color: #666360;

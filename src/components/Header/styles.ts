@@ -54,7 +54,7 @@ input {
   background-color: white;
   border: 0;
   font-family: 'Inter';
-  font-size: 16px;
+  font-size: 1rem;
   &::placeholder {
     color: #666360;
   }
