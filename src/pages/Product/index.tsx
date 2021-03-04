@@ -82,11 +82,11 @@ const Product: React.FC = () => {
         productId: Number(params.product),
         review: review,
         user: {
-        email: user.email,
-        photo_url: user.photo_url,
-        id: user.id,
-        name: user.name
-    }
+          email: user.email,
+          photo_url: user.photo_url,
+          id: user.id,
+          name: user.name
+        }
        })
 
        setReviews([...reviews, newReview.data])
@@ -144,7 +144,7 @@ const Product: React.FC = () => {
                     <p>{review.review}</p>
                   </div>
                   <div>
-                    <button onClick={() => handleDeleteReview(review.id)}> <HiTrash size={30}/> </button>
+                    {review.user.id === Number(user.id) && <button onClick={() => handleDeleteReview(review.id)}> <HiTrash size={30}/> </button>}
                   </div>
                 </Review>
               )
